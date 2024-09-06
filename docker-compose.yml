@@ -1,0 +1,23 @@
+# docker-compose.yml
+# docker-compose.yml
+version: '3'
+services:
+  jupyter:
+    build: .
+    container_name: jupyter
+    volumes:
+      - ./notebooks:/home/jovyan/work
+    working_dir: /home/jovyan/work
+    command: bash -c "jupyter notebook --ip=0.0.0.0 --port=8888 --no-browser --allow-root"
+    expose:
+      - "8888"
+
+  nginx:
+    image: nginx:1.23.3
+    container_name: nginx-jupyter
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro  # Mount the nginx.conf
+    ports:
+      - "8888:8888"  # Map host port 80 to container port 80
+    depends_on:
+      - jupyter
