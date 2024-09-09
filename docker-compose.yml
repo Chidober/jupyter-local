@@ -7,8 +7,9 @@ services:
     container_name: jupyter
     volumes:
       - ./notebooks:/home/jovyan/work
+      - ./jupyter_notebook_config.py:/root/.jupyter/jupyter_notebook_config.py
     working_dir: /home/jovyan/work
-    command: bash -c "jupyter notebook --ip=0.0.0.0 --port=8888 --no-browser --allow-root --NotebookApp.allow_origin='*' --NotebookApp.allow_remote_access=True"
+    command: bash -c "jupyter notebook --ip=0.0.0.0 --port=8888"
     expose:
       - "8888"
 
